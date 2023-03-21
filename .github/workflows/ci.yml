@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  CI: true
+  FORCE_COLOR: 2
 
 jobs:
   ci:
@@ -14,10 +14,9 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Add MSVC to PATH
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Build
         run: CALL "build.bat"
@@ -30,8 +29,8 @@ jobs:
         shell: bash
 
       - name: Upload binary
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v7
         with:
-          name: "7za_x64_MSVC2022"
+          name: "7za_x64_MSVC2026"
           path: dist/
           if-no-files-found: error
